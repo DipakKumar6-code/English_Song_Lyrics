@@ -8,25 +8,31 @@
 import UIKit
 
 class ClientViewController: UIViewController {
-    
+
+    // Outlets for user input fields
     @IBOutlet weak var projectName: UITextField!
     
     @IBOutlet weak var projectDuration: UITextField!
     
     @IBOutlet weak var projectLocation: UITextField!
-    
+
+    // Outlet for displaying the formatted output
     @IBOutlet weak var displayOutput: UITextView!
     
     override func viewDidLoad() {
             super.viewDidLoad()
         }
     
-    var username: String = ""
+    var username: String = "" // Variable to store the username passed from the previous screen
     
     @IBAction func submitInfoBtn(_ sender: Any) {
+        // will retrieve text from input fields
+        
         let projectNameText = projectName.text ?? ""
         let projectDurationText = projectDuration.text ?? ""
         let projectLocationText = projectLocation.text ?? ""
+
+        // Format the collected data into a structured output
         let finalResult = """
                 UserName is: \(username)
                 Project Name is: \(projectNameText)
@@ -34,7 +40,7 @@ class ClientViewController: UIViewController {
                 Project Location is: \(projectLocationText)
                 """
                 
-        displayOutput.text = finalResult
+        displayOutput.text = finalResult  // Display the formatted output in the text view
     }
     
 }
