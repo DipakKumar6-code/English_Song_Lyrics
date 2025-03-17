@@ -25,17 +25,20 @@ class ViewController: UIViewController {
         tipSlider.value = 18 // Default custom tip percentage
         billAmountField.keyboardType = .decimalPad // Ensuring numeric keypad
         billAmountField.addTarget(self, action: #selector(billAmountChanged), for: .editingChanged)
-        updateTipValues()
+        updateTipValues()  // Initializing tip calculations
     }
-    
+
+    // Trigger tip calculation when bill amount is changed
     @IBAction func billAmountChanged(_ sender: UITextField) {
         updateTipValues()
     }
-    
+
+    // Trigger tip calculation when slider value is changed
     @IBAction func tipSliderChanged(_ sender: UISlider) {
         updateTipValues()
     }
-    
+
+    // Function to update tip values based on bill amount and selected tip percentage
     func updateTipValues() {
         if let billText = billAmountField.text, !billText.isEmpty, let billAmount = Double(billText) {
         let fifteenPercentTip = (billAmount * 15) / 100
@@ -43,23 +46,27 @@ class ViewController: UIViewController {
         let customTipPercentage = Double(tipSlider.value)
         let customTipAmount = (billAmount * customTipPercentage) / 100
         let customTotal = billAmount + customTipAmount
-                    
-            fifteenPercentTipLabel.text = String(format: "$%.2f", fifteenPercentTip)
-            fifteenPercentTotalLabel.text = String(format: "$%.2f", fifteenPercentTotal)
-            customTipLabel.text = String(format: "$%.2f", customTipAmount)
-            customTotalLabel.text = String(format: "$%.2f", customTotal)
-            customTipPercentageLabel.text = "\(Int(customTipPercentage))%"
-            customTipPercentTop.text = "\(Int(customTipPercentage))"
-                } else {
-                    clearLabels()
-                }
+
+        // Updating the labels with formatted values
+        fifteenPercentTipLabel.text = String(format: "$%.2f", fifteenPercentTip)
+        fifteenPercentTotalLabel.text = String(format: "$%.2f", fifteenPercentTotal)
+        customTipLabel.text = String(format: "$%.2f", customTipAmount)
+        customTotalLabel.text = String(format: "$%.2f", customTotal)
+        customTipPercentageLabel.text = "\(Int(customTipPercentage))%"
+        customTipPercentTop.text = "\(Int(customTipPercentage))"
+            }
+        else
+            {
+                clearLabels()  // Resetting the labels if input is invalid or empty
+            }
     }
-    
+
+    // Function to reset all labels to default values
     func clearLabels() {
-        fifteenPercentTipLabel.text = "$0.00"
-        fifteenPercentTotalLabel.text = "$0.00"
-        customTipLabel.text = "$0.00"
-        customTotalLabel.text = "$0.00"
+        fifteenPercentTipLabel.text = "$ 0.00"
+        fifteenPercentTotalLabel.text = "$ 0.00"
+        customTipLabel.text = "$ 0.00"
+        customTotalLabel.text = "$ 0.00"
         customTipPercentageLabel.text = "Custom Tip: 0%"
     }
 }
